@@ -4,7 +4,8 @@ from TwitchAPI.Authorization import Authorization
 
 json_data = open("settings.json")
 data = json.load(json_data)
-auth = Authorization(
+auth = Authorization()
+auth.get_access_token(
     username=data["username"],
     password=data["password"],
     client_id=data["client_id"],

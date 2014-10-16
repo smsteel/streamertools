@@ -2,14 +2,14 @@ from TwitchAPI.Request import Request
 from TwitchAPI.Scopes import Scopes
 
 
-class Authorization:
+class Authorization(Request):
 
     grant_type = "password"
     request = "/oauth2/token"
     version = 3
-    access_token = ""
+    access_token = None
 
-    def __init__(self, username, password, client_id, client_secret):
+    def get_access_token(self, username, password, client_id, client_secret):
         scope = Scopes(user_read=True)
         payload = {
             'grant_type': self.grant_type,
@@ -19,5 +19,5 @@ class Authorization:
             'username': username,
             'password': password,
         }
-        r = Request(self.version, self.request, payload)
-        print(r.post())
+        token = self.post(payload)
+        print(token)
